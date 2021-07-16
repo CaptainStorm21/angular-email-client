@@ -6,31 +6,33 @@
         <label>Username</label>
         <input formControlName="username" />
       </div>
-
       {{ authForm.get('username').errors | json }}
-
 
       <div class="field">
         <label>Password</label>
         <input formControlName="password" />
       </div>
-
       {{ authForm.get('password').errors | json }}
 
       <div class="field">
-        <label>Confirmation Password</label>
+        <label>Password Confirmation</label>
         <input formControlName="passwordConfirmation" />
       </div>
-
       {{ authForm.get('passwordConfirmation').errors | json }}
-
       <div>
-        <button class="ui submit button primary">Submit</button>
-        <button class="ui submit button warning ">Reset</button>
-    </div>
+        <button class="ui submit button primary">
+          Submit
+        </button>
+        <button class="ui submit button warning">
+          Reset
+        </button>
+      </div>
 
-    {{ authForm.errors | json }}
+      <hr/>
 
-    </form>
+        {{ authForm.value | json }}
+
+
+
+      </form>
   </div>
-</div>
