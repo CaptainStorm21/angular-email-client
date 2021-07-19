@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
 import { AsyncValidator, FormControl } from '@angular/forms';
-
 import { map, catchError } from 'rxjs/operators';
-
 // need to look up a right definition for this operator
 import { of } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UniqueUsername implements AsyncValidator {
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService) {}
 
   validate = (control: FormControl) => {
     const { value } = control;
@@ -33,11 +30,7 @@ export class UniqueUsername implements AsyncValidator {
     // if you enter "asdf" --- response will be  "in use"
     // if you enter 'dude' --- response will be 'available
 
-    return this.http
-      .post<any>('https://api.angular-email.com/auth/username', {
-        username: value,
-      })
-      .pipe(
+    return this.authService.usernameAvailable(value).pipe(
         // map(value => {
         // console.log(value);
         // if (value.available) {
@@ -45,8 +38,10 @@ export class UniqueUsername implements AsyncValidator {
         // }
         // return null;
 
-        map((value) => {
-          return null;
+        map(value => {
+          if (value.available) {
+            return null;
+          }
         }),
         catchError((err) => {
           // console.log(err);
@@ -68,7 +63,7 @@ export class UniqueUsername implements AsyncValidator {
         */
         })
       );
-  };
+  }
 }
 /*
     because the only alternative is that the username is not available.
