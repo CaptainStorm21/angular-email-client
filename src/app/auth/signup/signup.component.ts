@@ -10,7 +10,7 @@ import { UniqueUsername } from '../validators/unique-username';
 })
 export class SignupComponent implements OnInit {
 
-  // lines 14 through 19 [] is synch
+  // lines 21 through 24[] is synch
   // if we want asynch, we need to add on line 21 after , [this.uniqueusername.validate]
 
   // in order to elimintae a number of request we need to run synch first to meet
@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
     username: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(4),
+      Validators.maxLength(7),
       Validators.pattern(/^[a-z0-9]+$/),
     ], [this.uniqueUsername.validate]),
 
